@@ -70,7 +70,7 @@
             <span class="profile user-icon">
                 <a href="{% url 'mypage' %}">
                     {% if user.profile %}
-                        <img class="profile_img" src="{{user.profile.url}}" alt="">
+                    <img class="profile_img" src="{{user.profile.url}}" alt="">
                     {% else %}
                     <i class="fas fa-user"></i>
                     {% endif %}
@@ -79,8 +79,6 @@
             </span>
             {% endif %}
         </div>
-
-        <!-- <div class="icon" id="bell"> <img src="{%static 'img/bell.png'%}" alt=""> </div> -->
 
         <div class="notifications" id="box" style="overflow-y:auto; max-height: 400px; z-index: 3;">
             <h2>Notifications</h2>

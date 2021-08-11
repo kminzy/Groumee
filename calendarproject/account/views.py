@@ -49,9 +49,12 @@ def register_view(request):
 def mypage_view(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form = CustomUserChangeForm(request.POST,instance=request.user)
+            form = CustomUserChangeForm(request.POST,request.FILES,instance=request.user)
             if form.is_valid():
-                form.save()
+                old_profile = request.user
+                old_profile.nickname = form.cleaned_data['nickname']
+                old_profile.profile = form.cleaned_data['profile']
+                old_profile.save()
                 messages.success(request, '회원정보가 수정되었습니다.')
                 return redirect('mypage')
         else:

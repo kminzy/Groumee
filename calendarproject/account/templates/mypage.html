@@ -15,15 +15,16 @@
     </div>
     <br><br>
     아이디: {{userinfo.username}}<br>
-    이메일: {{userinfo.email}}<br>
-    <form method="POST" style="text-align:center;">
+    이메일: {{userinfo.email}}<br><br>
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-element">
-            {{form.nickname}}
+            닉네임:{{form.nickname}}
         </div>
         <div class="form-element">
+            사진: <br>
             {{form.profile}}
-        </div>
+        </div><br><br>
         <button type="submit" class="btn-signup">Save changes</button>
     </form>
     <br><br>
