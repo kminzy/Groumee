@@ -5,9 +5,21 @@
 {% endblock %}
 
 {% block content %}
+<body></body>
 <div class="main-section">
     <h1>mypage</h1>
     <br><br>
+    아이디: {{userinfo.username}}<br>
+    닉네임: {{userinfo.nickname}}<br>
+    {{userinfo.email}}<br>
+    {% if user.profile %}
+    <img class="profile_img" src="{{userinfo.profile.url}}" style="height: 100px; width: 100px;"alt="">
+    {% else %}
+    <i class="fas fa-user"></i>
+    {% endif %}
+    <br><br>
+    <a href="{% url 'changeuserinfo' %}" style="color:black;">개인정보 변경</a>
     <a href="{% url 'changepw' %}" style="color:black;">비밀번호 변경</a>
 </div>
+</body>
 {% endblock %}

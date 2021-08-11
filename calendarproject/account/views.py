@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import RegisterForm, CustomPasswordChangeForm
+from .forms import RegisterForm, CustomPasswordChangeForm,CustomUserChangeForm
 from django.contrib import messages
 from groupmeet import *
+from account.models import CustomUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+
 # Create your views here.
 
 def login_view(request):
@@ -46,19 +48,38 @@ def register_view(request):
 @login_required
 def mypage_view(request):
     if request.user.is_authenticated:
-        return render(request, "mypage.html")
-
-@login_required
-def change_password(request):
-    if request.method == 'POST':
-        form = CustomPasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            messages.success(request, "비밀번호를 성공적으로 변경하였습니다.")
-            return redirect('changepw')
-        # else:
-        #     messages.error(request, 'Please correct the error below.')
+        userinfo=CustomUser.objects.get(nickname=request.user.nickname)
+        return render(request,'mypage.html',{'userinfo':userinfo})
     else:
-        form = CustomPasswordChangeForm(request.user)
-    return render(request, 'changePassword.html', {'form': form})
+        return render(request,'forbidden.html')
+
+def change_userinfo(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = CustomUserChangeForm(request.POST, instance = request.user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, '회원정보가 수정되었습니다.')
+                return redirect('mypage')
+        else:
+            form = CustomUserChangeForm(instance=request.user)
+        return render(request, 'changeuserinfo.html', {'form':form})
+    else:
+        return render(request,'forbidden.html')
+
+def change_password(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = CustomPasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, "비밀번호를 성공적으로 변경하였습니다.")
+                return redirect('changepw')
+            # else:
+            #     messages.error(request, 'Please correct the error below.')
+        else:
+            form = CustomPasswordChangeForm(request.user)
+        return render(request, 'changePassword.html', {'form': form})
+    else:
+        return render(request,'forbidden.html')

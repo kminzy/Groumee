@@ -36,7 +36,7 @@
             text-decoration-line: none;
             color: #ede7f6;
         }
-
+        
         .table-content th {
             width: 35%;
         }
@@ -63,22 +63,20 @@
             <a href="{% url 'getuserGroupList' %}">
                 <span class="profile">Group</span>
             </a>
-            <!--<img src="{%static 'img/bell.png'%}" id="bell-image">-->
-
             <span class="profile icon" id="bell"><i class="far fa-bell"></i> Notifications</span>
 
             <span class="profile space">|</span>
-
-            <a href="{% url 'mypage' %}">
-                <span class="profile user-icon">
+            
+            <span class="profile user-icon">
+                <a href="{% url 'mypage' %}">
                     {% if user.profile %}
-                    <img class="profile_img" src="{{user.profile.url}}" alt="">
+                        <img class="profile_img" src="{{user.profile.url}}" alt="">
                     {% else %}
                     <i class="fas fa-user"></i>
                     {% endif %}
                     <span class="user-nickname"> {{user.nickname}}</span>
-                </span>
-            </a>
+                </a>
+            </span>
             {% endif %}
         </div>
 
