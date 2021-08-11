@@ -3,6 +3,7 @@ from django import forms
 from django.forms import widgets
 from .models import CustomUser
 from django.core.exceptions import ValidationError
+from django.contrib.auth import get_user_model
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(widget = forms.TextInput(attrs={
@@ -80,17 +81,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         fields = ['old_password', 'new_password1', 'new_password2']
 
 class CustomUserChangeForm(UserChangeForm):
-    nickname = forms.CharField(widget = forms.TextInput(attrs={
-         "class":"input",
-         "type":"nickname",
-         "placeholder":"nickname",
-     }),label="enter nickname", error_messages={'unique' : '입력하신 닉네임을 사용하는 유저가 이미 존재합니다'})
-
-    profile = forms.ImageField(widget = forms.FileInput(attrs={
-         "class":"input",
-         "type":"file",
-     }),label="upload profile", required=False)
-     
+    password=None
     class Meta:
-        model = CustomUser
+        model = get_user_model()
         fields = ['nickname', 'profile']

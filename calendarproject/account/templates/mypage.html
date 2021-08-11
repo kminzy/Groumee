@@ -8,17 +8,25 @@
 <body></body>
 <div class="main-section">
     <h1>mypage</h1>
+    <div class="change_success">
+        {% for message in messages %}
+        <i class="fas fa-check"></i> {{ message.message }}
+        {% endfor %}
+    </div>
     <br><br>
     아이디: {{userinfo.username}}<br>
-    닉네임: {{userinfo.nickname}}<br>
-    {{userinfo.email}}<br>
-    {% if user.profile %}
-    <img class="profile_img" src="{{userinfo.profile.url}}" style="height: 100px; width: 100px;"alt="">
-    {% else %}
-    <i class="fas fa-user"></i>
-    {% endif %}
+    이메일: {{userinfo.email}}<br>
+    <form method="POST" style="text-align:center;">
+        {% csrf_token %}
+        <div class="form-element">
+            {{form.nickname}}
+        </div>
+        <div class="form-element">
+            {{form.profile}}
+        </div>
+        <button type="submit" class="btn-signup">Save changes</button>
+    </form>
     <br><br>
-    <a href="{% url 'changeuserinfo' %}" style="color:black;">개인정보 변경</a>
     <a href="{% url 'changepw' %}" style="color:black;">비밀번호 변경</a>
 </div>
 </body>

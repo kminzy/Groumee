@@ -48,22 +48,16 @@ def register_view(request):
 @login_required
 def mypage_view(request):
     if request.user.is_authenticated:
-        userinfo=CustomUser.objects.get(nickname=request.user.nickname)
-        return render(request,'mypage.html',{'userinfo':userinfo})
-    else:
-        return render(request,'forbidden.html')
-
-def change_userinfo(request):
-    if request.user.is_authenticated:
         if request.method == 'POST':
-            form = CustomUserChangeForm(request.POST, instance = request.user)
+            form = CustomUserChangeForm(request.POST,instance=request.user)
             if form.is_valid():
                 form.save()
                 messages.success(request, '회원정보가 수정되었습니다.')
                 return redirect('mypage')
         else:
             form = CustomUserChangeForm(instance=request.user)
-        return render(request, 'changeuserinfo.html', {'form':form})
+            userinfo=CustomUser.objects.get(nickname=request.user.nickname)
+        return render(request, 'mypage.html', {'form':form,'userinfo':userinfo})
     else:
         return render(request,'forbidden.html')
 

@@ -7,6 +7,5 @@ urlpatterns = [
     path('register/', register_view, name="signup"),
     path('mypage/', mypage_view, name="mypage"),
     path('mypage/changepw/', change_password, name="changepw"),
-    path('mypage/changeuserinfo/', change_userinfo, name='changeuserinfo'),
 
 ]
