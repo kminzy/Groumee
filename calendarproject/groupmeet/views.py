@@ -418,7 +418,9 @@ def createGroup(request):
 def editGroup(request, group_id):
    if request.user.is_authenticated:
       groupInfo = Group.objects.get(pk=group_id)
-      return render(request, "editGroup.html", {'groupInfo':groupInfo})
+      user = request.user.nickname
+      userList = CustomUser.objects.exclude(nickname=user)
+      return render(request, "editGroup.html", {'groupInfo':groupInfo, 'userList':userList})
    else:
       return render(request,'forbidden.html')
 
