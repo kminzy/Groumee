@@ -29,8 +29,8 @@
         </div>
       </div>
       <div class="sidebar-bot">
-        <span><a style="color:black" href="{% url 'editGroup' group.id %}"> 그룹 수정 <i class="fas fa-cog"></i> </a></span>
-        <span id="leave-group">나가기 <i class="fas fa-sign-out-alt"></i></span>
+        <span id="leave-or-edit" style="float: left" onclick="location.href='{% url 'editGroup' group.id %}'"> 그룹 수정 <i class="fas fa-cog"></i></span>
+        <span id="leave-or-edit" style="float: right">나가기 <i class="fas fa-sign-out-alt"></i></span>
       </div>
     </div>
     <div id="top">
@@ -311,7 +311,7 @@
   //   }
   // });
 
-  $(document).on('click', '#leave-group', function () {
+  $(document).on('click', '#leave-or-edit', function () {
     Swal.fire({
       title: '이 그룹에서 나가시겠습니까?',
       text: "그룹을 나가시면 다시 참여하실 수 없습니다.",

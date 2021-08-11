@@ -391,7 +391,9 @@ def createGroup(request):
 
 def editGroup(request, group_id):
    groupInfo = Group.objects.get(pk=group_id)
-   return render(request, "editGroup.html", {'groupInfo':groupInfo})
+   user = request.user.nickname
+   userList = CustomUser.objects.exclude(nickname=user)
+   return render(request, "editGroup.html", {'groupInfo':groupInfo, 'userList':userList})
 
 def updateGroup(request, group_id):
    groupInfo = Group.objects.get(pk=group_id)
@@ -423,6 +425,7 @@ def groupInvite(request):
       userGroup.group = group
       userGroup.allowed = 0
       userGroup.save()
+   messages.success(request, "그룹이 생성되었습니다.")
    return redirect('getuserGroupList')
 
 def invitation_view(request,id):
