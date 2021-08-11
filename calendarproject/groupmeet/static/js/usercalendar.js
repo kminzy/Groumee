@@ -61,6 +61,10 @@ $(document).ready(function(){
     let day = $(this).html().split('<')[0];          // 클릭한 날짜의 날(ex : 15, 17, 31...)을 가져와서
     $("#cur_day").text(day);                         // 사이드바의 날짜로 한다. 즉 클릭한 날짜가 사이드바에 표시되게 됨
 
+    let date = new Date(cur_year + '-' + cur_month + '-' + day);                 // 클릭한 날짜
+    let week = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAT"];
+    $("#cur_weekday").text(week[date.getDay()]);                                 // 클릭한 날짜의 요일 영어로 해서 
+
     let param = {                                    // 클릭한 날짜의 년/월/일을 객체형태로. 얘를 ajax통신에 사용할 것임
       'year' : cur_year,
       'month' : cur_month,
@@ -80,7 +84,6 @@ $(document).ready(function(){
                                                                           // 즉 schedules_list는 js객체들의 리스트형태
                                                                           // ex) [json_data_01, json_data_02, json_data_03, ...]
                                                                           // shcedules_list는 클릭한 날짜의 일정들의 리스트임
-        $("#num-of-schedules").text(schedules_list.length); // 사이드바에서 'N개의 일정들이 있습니다'라는 문장에서 N을 표기
         $(".content-section").empty();                      // 일정들이 채워질 영역을 비움 -> 7일날 일정 보다가 8일 일정 볼때, 7일 일정
                                                             // 은 날리고 8일 일정만 봐야 하므로 
 
@@ -102,9 +105,12 @@ $(document).ready(function(){
 
           let time = start_time + ' ~ ' + end_time;                       
           let content = schedules_list[i]['fields']['title'].slice(0, 20);  // content : 그 일정의 내용, 단 20글자만 가져옴
+
+          let corner_color = schedules_list[i]['fields']['color'];
+          console.log(corner_color)
   
           $(".content-section").append(                                    // 사이드바에 일정 추가
-            '<div class="content">\
+            '<div class="content" corner_color="' + corner_color + '">\
               <div class="top">\
                 <div>' + time + '</div>\
                 <i class="fas fa-edit edit-schedule" data-bs-toggle="modal" data-bs-target="#UserScheduleModal" value="' + schedules_list[i]['pk'] + '"></i>\
@@ -115,7 +121,14 @@ $(document).ready(function(){
               + '</div>\
             </div>'
           );
-        }
+          }
+
+          let contents = $('.content');
+
+          $.each(contents,function(index, item){
+            let corner_color = item.getAttribute('corner_color');
+            item.style.background = "linear-gradient(135deg, " + corner_color + " 7%, #fff 0)";
+          });
         }
       },
       error:function(){                              // 통신에 실패하면 이하 내용 실행
@@ -135,8 +148,8 @@ $(document).ready(function(){
   $(document).on("click", ".edit-schedule", function(){             // 각 스케줄들의 수정 아이콘(연필모양)을 누르면 이하 내용 실행
                                                                     // 부트스트랩 연동으로 모달창이 자동으로 띄워지는데, 모달창의 폼을 우리가 수정할 스케줄의 값들로 채울 것임
     $('.modal-title').text('일정 수정');
-    $('.modal-footer .btn-primary').text('수정');
-    $('.modal-footer .btn-primary').attr("id", "edit-userschedule");  // 모달의 이름과 버튼이름, 버튼의 아이디값을 설정
+    $('.btn-wrapper .save-btn').text('수정');
+    $('.btn-wrapper .save-btn').attr("id", "edit-userschedule");  // 모달의 이름과 버튼이름, 버튼의 아이디값을 설정
 
     $('.modal-body #userschedule-form ul').empty();                   // 오류메시지 출력하는 칸도 비움
 
@@ -349,7 +362,7 @@ $(document).ready(function(){
 
 
 function closeSidebar() {                                           // 사이드바 닫기
-  document.getElementById("Sidebar").style.right = "-25vw";
+  document.getElementById("Sidebar").style.right = "-35vw";
 }
 
 function go_prev_month() {                                          // 이전 달로 가기

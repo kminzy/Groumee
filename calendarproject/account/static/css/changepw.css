@@ -16,11 +16,10 @@ body{
 
 .main-container{
     flex: 1;
-    background-image: 
-  radial-gradient(circle at -66% 50%, #5d9dff 0%, #838de9 70%, rgb(156, 161, 241) 70%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background-image: radial-gradient(circle at -66% 50%, #5d9dff 0%, #838de9 70%, rgb(156, 161, 241) 70%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main-section{
@@ -29,7 +28,7 @@ body{
     justify-content: center;
     align-items: center;
     width: 35%;
-    height: 85%;
+    height: 80%;
     background: linear-gradient(287deg, rgba(255,255,255,1) 0%, rgba(243,244,244,1) 0%, rgba(255,255,255,1) 100%);
     border-radius: 20px;
     -webkit-box-shadow: 27px 43px 43px -26px rgba(89,89,89,0.39);
@@ -88,11 +87,7 @@ body{
     font-size: 0.75rem;
 }
 
-.mid-section form #password2-error-field{
-    height: 1.5rem;
-}
-
-#id_username, #id_nickname, #id_email, #id_password1, #id_password2{
+#id_old_password, #id_new_password1, #id_new_password2{
     width: 100%;
     background: transparent;
     height: 30px;
@@ -101,8 +96,9 @@ body{
     margin-bottom: 5px;
     outline-style: none;
     font-size: 1.25rem;
-    font-weight: 300;;
+    font-weight: 300;
     padding: 0;
+    border-radius: 0 !important;
 }
 
 .btn-signup{
@@ -125,21 +121,7 @@ body{
     cursor: pointer;
 }
 
-#id_profile {
-    width: 100%;
-    background: transparent;
-    height: 30px;
-    border: 0;
-    border-bottom: 1px solid #060b18;
-    margin-bottom: 5px;
-    outline-style: none;
-    font-size: 0.8rem;
-    font-weight: 300;
-    padding: 0;
-}
-
-.profile_guide{
+.change_success{
+    font-weight:700;
     color:#4555e6;
-    font-size:9.5px;
-    margin-top:0;
 }

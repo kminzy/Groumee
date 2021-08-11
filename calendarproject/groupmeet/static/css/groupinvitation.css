@@ -53,13 +53,10 @@ table{             /* 부트스트랩 css 상쇄 */
 }
 
 .user_icon{
-    font-size:2rem;
-    padding:0.3rem 0.4em;
-    margin-right:1rem;
-    border-radius: 50%;
-    background: #f1f4ff;
-    color:#4555e6;
-
+    height: 50px;
+    width: 50px;
+    border-radius: 40%;
+    margin-right: 20px;
 }
 
 .invitation_icon{
@@ -98,41 +95,99 @@ table{             /* 부트스트랩 css 상쇄 */
 .member{
     display: flex;
     align-items: left;
-    margin-left: 1rem;
+    margin-left: 1.3rem;
     margin-bottom: 1rem;
 }
 
 .user_name{
     font-size: 1.3rem;
     font-display: center;
+    margin-top: 7px;
 }
 
-.btn_wrap{
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.btn{
-    border-radius: 25px;
-    background: #aeb4e9;
-    color:white;
-    font-weight: 500;
-    padding:8px 14px 7px 14px;
-    margin-right:0.5rem;
-    cursor:pointer;
-    outline: none;
-    appearance: auto;
-    text-align: center;
-}
-
-.btn:hover{
-    background: #838de9;
-    color:white;
-}
 
 .buttons{
-    margin-top: 30px;
+    margin-top: 60px;
 }
+
+
+ button {
+	 position: relative;
+	 display: inline-block;
+	 cursor: pointer;
+	 outline: none;
+	 border: 0;
+	 vertical-align: middle;
+	 text-decoration: none;
+	 background: transparent;
+	 padding: 0;
+	 font-size: 1.2rem;
+	 font-family: inherit;
+}
+ button.selectbtn {
+	 width: 8rem;
+	 height: auto;
+}
+ button.selectbtn .circle {
+	 transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+	 position: relative;
+	 display: block;
+	 margin: 0;
+	 width: 3rem;
+	 height: 3rem;
+	 background: #88b2f1;
+	 border-radius: 1.625rem;
+}
+ button.selectbtn .circle .icon {
+	 transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+	 position: absolute;
+	 top: 0;
+	 bottom: 0;
+	 margin: auto;
+	 background: #fff;
+}
+ button.selectbtn .circle .icon.arrow {
+	 transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+	 left: 0.625rem;
+	 width: 1.125rem;
+	 height: 0.125rem;
+	 background: none;
+}
+ button.selectbtn .circle .icon.arrow::before {
+	 position: absolute;
+	 content: '';
+	 top: -0.25rem;
+	 right: 0.0625rem;
+	 width: 0.625rem;
+	 height: 0.625rem;
+	 border-top: 0.125rem solid #fff;
+	 border-right: 0.125rem solid #fff;
+	 transform: rotate(45deg);
+}
+ button.selectbtn .button-text {
+	 transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 right: 0;
+	 bottom: 0;
+	 padding: 0.75rem 0;
+	 margin: 0 0 0 1.85rem;
+	 color: #88b2f1;
+	 font-weight: 700;
+	 line-height: 1.1;
+	 text-align: center;
+	 text-transform: uppercase;
+}
+ button:hover .circle {
+	 width: 100%;
+}
+ button:hover .circle .icon.arrow {
+	 background: #fff;
+	 transform: translate(1rem, 0);
+}
+ button:hover .button-text {
+	 color: #fff;
+}
+
+ 
