@@ -69,10 +69,10 @@
             
             <span class="profile user-icon">
                 <a href="{% url 'mypage' %}">
-                    {% if user.profile.url != False %}
-                    <img class="profile_img" src="{{user.profile.url}}" alt="">
-                    {% else %}
+                    {% if user.profile.url == '/media/False'%}
                     <i class="fas fa-user"></i>
+                    {% else %}
+                    <img class="profile_img" src="{{user.profile.url}}" alt="">
                     {% endif %}
                     <span class="user-nickname"> {{user.nickname}}</span>
                 </a>

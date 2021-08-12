@@ -21,12 +21,12 @@
                 {% csrf_token %}
                 <div class="nickname-and-profile">
                     <div class="point">
-                        {% if user.profile %}
+                        {% if user.profile.url == '/media/False'%}
+                            <i class="fas fa-user"></i>
+                        {% else %}
                             <div class="profile-image">
                                 <img class="profile-image-img" src="{{user.profile.url}}">
                             </div>
-                        {% else %}
-                            <i class="fas fa-user"></i>
                         {% endif %}
                             <div class="inputs">
                                 <div class="nickname-zone">{{form.nickname}}<i class="fas fa-edit edit-nickname"></i></div>

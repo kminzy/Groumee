@@ -51,11 +51,22 @@ def mypage_view(request):
         if request.method == 'POST':
             form = CustomUserChangeForm(request.POST,request.FILES,instance=request.user)
             if form.is_valid():
+                flag=True
                 old_profile = request.user
                 old_profile.nickname = form.cleaned_data['nickname']
                 old_profile.profile = form.cleaned_data['profile']
-                old_profile.save()
-                messages.success(request, '회원정보가 수정되었습니다.')
+                for user in CustomUser.objects.all():
+                    if form.cleaned_data['nickname']==user.nickname:
+                        if request.user!=user:  #나 제외 한명이라도 같으면 for문 break
+                            flag=True
+                            break
+                    else:
+                        flag=False
+                if flag:
+                    messages. error (request, '닉네임을 사용할 수 없습니다.')
+                else:
+                    old_profile.save()
+                    messages.success(request, '정보를 변경했습니다.')
                 return redirect('mypage')
         else:
             form = CustomUserChangeForm(instance=request.user)
