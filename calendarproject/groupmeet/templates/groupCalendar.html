@@ -33,6 +33,14 @@
             {% endfor %}
           </div>
         </div>
+        <div class="nono-members">
+          <i class="far fa-thumbs-down"></i> 초대를 거절한 멤버
+          <div class="members-list">
+            {% for member in nono_members %}
+             {{member.nickname}}<br />
+            {% endfor %}
+          </div>
+        </div>
       </div>
       <div class="sidebar-bot">
         <span id="edit-group"></span><a id="edit-group" href="{% url 'editGroup' group.id %}"> 그룹 수정<i class="fas fa-cog"></i>&nbsp;&nbsp;</a></span>
