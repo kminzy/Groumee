@@ -100,9 +100,12 @@ fieldset{
 }
 
 /* 검색 결과 nickname+btn */
+/* 스크롤 추가 */
 .card{
     display: flex;
     border:none;
+    max-height:450px;
+    overflow-y: auto;
 }
 .result-user{
     border:1px solid #eee;
@@ -159,4 +162,13 @@ form ul{
     list-style: none;
     font-size: 0.75rem;
     color: red;
+}
+
+.fa-user{
+    padding:10px;
+    background: #f1f4ff;
+    color:#4555e6;
+    border-radius: 50%;
+    width:35px;
+    height:35px;
 }
