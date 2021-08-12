@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UsernameField
 from django.contrib.auth.models import User
-from django.http.response import JsonResponse
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect,  get_object_or_404
 from .models import Schedule, Group, GroupSchedule, UserGroup, Comment
 from account.models import CustomUser
@@ -186,15 +186,13 @@ def getuserGroupList(request):
       user = request.user
       usergroup=UserGroup.objects.filter(user=user, allowed=2)
       userGroup_list=[]
-      allUser = UserGroup.objects.all().exclude(user=user)
       alluser_list = []
 
       for ug in usergroup:
          userGroup_list.append(ug.group)
-         new_usergroup = ug.group
-         for au in allUser:
-            if (au.group == new_usergroup) and (au.allowed == 2):
-               alluser_list.append(au)
+         allUser = UserGroup.objects.filter(group=ug.group, allowed=2).exclude(user=user)
+         alluser_list.append(allUser)
+         print(allUser)
 
       invitedGroup = UserGroup.objects.filter(user=user, allowed=0)
       invitedGroup=list(invitedGroup)
@@ -436,7 +434,8 @@ def updateGroup(request, group_id):
          userGroup.group = groupInfo
          userGroup.allowed = 0
          userGroup.save()
-      return redirect('getuserGroupList')
+      messages.success(request, '그룹정보가 수정되었습니다.')
+      return redirect('groupCalendar_view', group_id)
    else:
       return render(request,'forbidden.html')
 
@@ -478,6 +477,7 @@ def groupInvite(request):
          data = {
             'result' : 'success'
          }
+      messages.success(request, '그룹정보가 수정되었습니다.')
       return JsonResponse(data)
    else:
       return render(request,'forbidden.html')

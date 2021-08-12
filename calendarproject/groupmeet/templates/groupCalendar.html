@@ -2,7 +2,13 @@
 <link rel="stylesheet" href='{% static "css/groupcalendar.css" %}' />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700;900&display=swap" rel="stylesheet">
 {% endblock %} {% block content %}
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <script> alert('{{message}}'); </script>
+    {% endfor %}
+</ul>
+{% endif %}
 <div class="main-section">
   <div class="left-section">
     <div class="sidebar-overlay"></div>
@@ -315,7 +321,7 @@
   //   }
   // });
 
-  $(document).on('click', '#leave-or-edit', function () {
+  $(document).on('click', '#leave-group', function () {
     Swal.fire({
       title: '이 그룹에서 나가시겠습니까?',
       text: "그룹을 나가시면 다시 참여하실 수 없습니다.",
