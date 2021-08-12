@@ -1,37 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block extrahead %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href='{% static "css/creategroup.css" %}' />
-{% endblock %} {% block content %}
-<script>
-  function filter() {
-    let searchUser = document.getElementById('searchUser').value.toLowerCase();
-    let userList = document.getElementsByClassName('userList');
-    for (let i = 0; i < userList.length; i++) {
-      nickName = userList[i].getElementsByClassName('nickName');
-      if (searchUser != '' && nickName[0].innerHTML.toLowerCase().includes(searchUser)) {
-        userList[i].style.display = '';
-      } else {
-        userList[i].style.display = 'none';
-      }
-    }
-  }
-
-  function addUser(button) {
-    let checkboxArea = document.getElementById('checkboxArea');
-    let checkList = document.getElementsByClassName('checkbox');
-    let newDiv = document.createElement('div');
-    newDiv.setAttribute('class', 'form-check');
-    let checkListData = [];
-    for (let i = 0; i < checkList.length; i++) {
-      checkListData.push(checkList[i].value);
-    }
-    if (!checkListData.includes(button.name)) {
-      newDiv.innerHTML = `<input name="members[]" class="form-check-input checkbox" type="checkbox" value="${button.name}" id="gridCheck1" checked/> <label class="form-check-label" for="gridCheck1"> ${button.name} </label>`;
-      checkboxArea.appendChild(newDiv);
-    }
-  }
-</script>
-{% if messages %}
+{% endblock %} {% block content %} {% if messages %}
 <ul class="messages">
   {% for message in messages %}
   <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}>{{ message }}</li>
@@ -81,7 +51,7 @@
                     <td class="nickName" style="border: none">
                       <div class="result-user">
                         {% if user.profile %}
-                        <img style="width:35px; height:35px; border-radius:50%;" src={{user.profile.url}}></img>
+                        <img style="width: 35px; height: 35px; border-radius: 50%" src="{{user.profile.url}}" />
                         {% else %}
                         <i class="fas fa-user"></i>
                         {% endif %}
@@ -112,76 +82,102 @@
 </div>
 
 <script>
-  $(document).ready(function(){
-    $('.group-name').focus(function(){
-      $('#form-name-error').empty(); 
-    })
-    
-    $('.plus-btn').focus(function(){
-      $('#form-members-error').empty(); 
-    })
+  function filter() {
+    let searchUser = document.getElementById('searchUser').value.toLowerCase();
+    let userList = document.getElementsByClassName('userList');
+    for (let i = 0; i < userList.length; i++) {
+      nickName = userList[i].getElementsByClassName('user-name');
+      if (searchUser != '' && nickName[0].innerHTML.toLowerCase().includes(searchUser)) {
+        userList[i].style.display = '';
+      } else {
+        userList[i].style.display = 'none';
+      }
+    }
+  }
 
-    $('.form-check-input').focus(function(){
-      $('#form-members-error').empty(); 
-    })
+  function addUser(button) {
+    let checkboxArea = document.getElementById('checkboxArea');
+    let checkList = document.getElementsByClassName('checkbox');
+    let newDiv = document.createElement('div');
+    newDiv.setAttribute('class', 'form-check');
+    let checkListData = [];
+    for (let i = 0; i < checkList.length; i++) {
+      checkListData.push(checkList[i].value);
+    }
+    if (!checkListData.includes(button.name)) {
+      newDiv.innerHTML = `<input name="members[]" class="form-check-input checkbox" type="checkbox" value="${button.name}" id="gridCheck1" checked/> <label class="form-check-label" for="gridCheck1"> ${button.name} </label>`;
+      checkboxArea.appendChild(newDiv);
+    }
+  }
 
-    $(document).on("change", ".form-check-input", function(){
-      if($(".form-check-input").is(":checked")){
+  $(document).ready(function () {
+    $('.group-name').focus(function () {
+      $('#form-name-error').empty();
+    });
+
+    $('.plus-btn').focus(function () {
+      $('#form-members-error').empty();
+    });
+
+    $('.form-check-input').focus(function () {
+      $('#form-members-error').empty();
+    });
+
+    $(document).on('change', '.form-check-input', function () {
+      if ($('.form-check-input').is(':checked')) {
         $('#form-members-error').empty();
       }
     });
 
-    $(document).on("click", ".invite-btn", function(){            
-      $('form ul').empty();               // 오류메시지 출력하는 부분 비우기
-      const new_group_name = $("#inputPassword3").val();
+    $(document).on('click', '.invite-btn', function () {
+      $('form ul').empty(); // 오류메시지 출력하는 부분 비우기
+      const new_group_name = $('#inputPassword3').val();
       let new_group_members = [];
-      $('.form-check-input').each(function(index){  //index는 순서
-        if($(this).is(":checked")){
-          new_group_members.push($(this).val())
+      $('.form-check-input').each(function (index) {
+        //index는 순서
+        if ($(this).is(':checked')) {
+          new_group_members.push($(this).val());
         }
       });
       const csrf = document.getElementsByName('csrfmiddlewaretoken');
       let csrf_token = '{{csrf_token}}';
-
-      console.log(new_group_name);
       const fd = new FormData();
 
       fd.append('csrfmiddlewaretoken', csrf[0].value);
       fd.append('new_group_name', new_group_name);
       fd.append('new_group_members', new_group_members);
-                                           // 입력한 폼 데이터들을 전부 fd란 변수에 담아서 ajax통신
-      
-      $.ajax({
-        url : "{% url 'groupInvite' %}",
-        type : 'POST',
-        headers : {
-          'X-CSRFTOKEN' : "{{csrf_token}}"
-        },
-        data : fd,
-        success:function(data){
+      // 입력한 폼 데이터들을 전부 fd란 변수에 담아서 ajax통신
 
-          if(data['result'] === "success"){                   // 작성한 폼이 유효했다면 
-            location.href = "{% url 'getuserGroupList' %}"
-          }
-          else{                                               // 작성한 폼이 유효 X -> 에러메시지 출력
+      $.ajax({
+        url: "{% url 'groupInvite' %}",
+        type: 'POST',
+        headers: {
+          'X-CSRFTOKEN': '{{csrf_token}}',
+        },
+        data: fd,
+        success: function (data) {
+          if (data['result'] === 'success') {
+            // 작성한 폼이 유효했다면
+            location.href = "{% url 'getuserGroupList' %}";
+          } else {
+            // 작성한 폼이 유효 X -> 에러메시지 출력
             errors = data['error_messages'];
             console.log(errors.length);
-            for(let i=0; i<errors.length; i++){
+            for (let i = 0; i < errors.length; i++) {
               let error_message = '<li>' + errors[i]['error_content'] + '</li>';
               let error_field = errors[i]['error_type'];
-              $("ul[id*='" + error_field +"']").append(error_message);
+              $("ul[id*='" + error_field + "']").append(error_message);
             }
           }
         },
-        error:function(){
-          alert("그룹 생성에 실패했습니다");
+        error: function () {
+          alert('그룹 생성에 실패했습니다');
         },
-        cache : false,
+        cache: false,
         contentType: false,
-        processData: false
+        processData: false,
       });
-
     });
-  })
+  });
 </script>
 {% endblock %}
