@@ -21,17 +21,26 @@
                 {% csrf_token %}
                 <div class="nickname-and-profile">
                     <div class="point">
-                        {% if user.profile.url == '/media/False'%}
-                            <i class="fas fa-user"></i>
+                        {% if user.profile %}
+                            {% if user.profile.url == '/media/False' %}
+                                <div class="profile-image">
+                                    <img class="profile-image-img" src="{% static 'img/baseprofile.png' %}">
+                                </div>
+                            {% else %}
+                                <div class="profile-image">
+                                    <img class="profile-image-img" src="{{user.profile.url}}">
+                                </div>
+                            {% endif %}
                         {% else %}
                             <div class="profile-image">
-                                <img class="profile-image-img" src="{{user.profile.url}}">
+                                <img class="profile-image-img" src="{% static 'img/baseprofile.png' %}">
                             </div>
                         {% endif %}
-                            <div class="inputs">
-                                <div class="nickname-zone">{{form.nickname}}<i class="fas fa-edit edit-nickname"></i></div>
-                                {{form.profile}}
-                            </div>
+                        
+                        <div class="inputs">
+                            <div class="nickname-zone">{{form.nickname}}<i class="fas fa-edit edit-nickname"></i></div>
+                            {{form.profile}}
+                        </div>
                     </div>
                     <div class="go-change">
                         <button type="submit" class="btn-change">변경</button>
