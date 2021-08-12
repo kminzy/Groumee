@@ -1,34 +1,37 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block extrahead %}
+{% extends 'base.html' %} {% load static %} {% block extrahead %}
 <link rel="stylesheet" href='{% static "css/groupinvitation.css" %}' />
-{% endblock %}
-
-{% block content %}
-<body></body>
-<div class="main-section">
+{% endblock %} {% block content %}
+<body>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <script>
+      alert('{{message}}');
+    </script>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <div class="main-section">
     <h1>mypage</h1>
     <div class="change_success">
-        {% for message in messages %}
-        <i class="fas fa-check"></i> {{ message.message }}
-        {% endfor %}
+      {% for message in messages %}
+      <i class="fas fa-check"></i> {{ message.message }} {% endfor %}
     </div>
-    <br><br>
-    아이디: {{userinfo.username}}<br>
-    이메일: {{userinfo.email}}<br><br>
+    <br /><br />
+    아이디: {{userinfo.username}}<br />
+    이메일: {{userinfo.email}}<br /><br />
     <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-element">
-            닉네임:{{form.nickname}}
-        </div>
-        <div class="form-element">
-            사진: <br>
-            {{form.profile}}
-        </div><br><br>
-        <button type="submit" class="btn-signup">Save changes</button>
+      {% csrf_token %}
+      <div class="form-element">닉네임:{{form.nickname}}</div>
+      <div class="form-element">
+        사진: <br />
+        {{form.profile}}
+      </div>
+      <br /><br />
+      <button type="submit" class="btn-signup">Save changes</button>
     </form>
-    <br><br>
-    <a href="{% url 'changepw' %}" style="color:black;">비밀번호 변경</a>
-</div>
+    <br /><br />
+    <a href="{% url 'changepw' %}" style="color: black">비밀번호 변경</a>
+  </div>
 </body>
 {% endblock %}
