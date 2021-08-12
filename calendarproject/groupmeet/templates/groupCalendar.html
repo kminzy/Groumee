@@ -155,7 +155,7 @@
               {%else%}
                 <li class="in">
                   <div class="chat-body">
-                    {% if comment.writer.profile.url == '/media/False'%}
+                    {% if not comment.writer.profile or comment.writer.profile.url == '/media/False'%}
                     <i class="fas fa-user"></i>
                     {% else %}
                     <img class="profile_img" style="width:35px; height:35px; border-radius:50%;" src="{{comment.writer.profile.url}}" alt="">

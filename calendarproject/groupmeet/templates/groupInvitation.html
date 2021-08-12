@@ -22,7 +22,7 @@
         <div class="members">
             {%for member in member_list%}
             <div class="member">
-                {% if member.profile.url == '/media/False'%}
+                {% if not member.profile or member.profile.url == '/media/False'%}
                 <i class="fas fa-user"></i>
                 {% else %}
                 <img class="profile_img" style="width:35px; height:35px; border-radius:50%;" src="{{member.profile.url}}" alt="">
