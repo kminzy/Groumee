@@ -4,23 +4,31 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
+.group-name {
+  text-align: center;
+  width: 86%;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 30px;
+  color: #3849aa;
+}
+
 #top,
-.info-section {
+.info-section,
+.today {
   height: 70px;
 }
 
 .today {
   width: 100%;
-  font-size: 3rem !important;
+  font-size: 30px !important;
+  font-weight: bold;
   color: #3849aa !important;
-  margin: auto;
-  font-family: 'Baloo Tamma 2', cursive;
-  /* border:1px solid red; */
   text-align: center;
   width: 100%;
-  font-size: 80px;
-  letter-spacing: 5px;
-  text-shadow: -1px -1px 0px #ede7f6, 3px 3px 0px #ede7f6, 6px 6px 0px #311b92;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .calendar-info {
