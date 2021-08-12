@@ -181,6 +181,7 @@ def getuserGroupList(request):
    if request.user.is_authenticated:
       user = request.user
       usergroup=UserGroup.objects.filter(user=user, allowed=2)
+
       userGroup_list=[]
       alluser_list = []
 
@@ -188,7 +189,6 @@ def getuserGroupList(request):
          userGroup_list.append(ug.group)
          allUser = UserGroup.objects.filter(group=ug.group, allowed=2).exclude(user=user)
          alluser_list.append(allUser)
-         print(allUser)
 
       invitedGroup = UserGroup.objects.filter(user=user, allowed=0)
       invitedGroup=list(invitedGroup)
