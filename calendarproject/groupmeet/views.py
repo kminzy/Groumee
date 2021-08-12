@@ -465,7 +465,7 @@ def groupInvite(request):
          data = {
             'result' : 'success'
          }
-      messages.success(request, '그룹정보가 수정되었습니다.')
+      messages.success(request, '그룹이 생성되었습니다.')
       return JsonResponse(data)
    else:
       return render(request,'forbidden.html')
