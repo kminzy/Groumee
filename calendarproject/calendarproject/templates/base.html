@@ -59,7 +59,24 @@
         </a>
         <span class="profile icon" id="bell"><i class="far fa-bell"></i> Notifications</span>
 
-        <span class="profile space">|</span>
+            <span class="profile space">|</span>
+            
+            <span class="profile user-icon">
+                <a href="{% url 'mypage' %}">
+                    {% if user.profile %}
+                        {% if user.profile.url == '/media/False'%}
+                            <i class="fas fa-user"></i>
+                        {% else %}
+                            <img class="profile_img" src="{{user.profile.url}}" alt="">
+                        {% endif %}
+                    {% else %}
+                        <i class="fas fa-user"></i>
+                    {% endif %}
+                    <span class="user-nickname"> {{user.nickname}}</span>
+                </a>
+            </span>
+            {% endif %}
+        </div>
 
         <span class="profile user-icon">
           <a href="{% url 'mypage' %}">

@@ -623,6 +623,11 @@ body {
 
 .sidebar .sidebar-mid .waiting-members {
   text-align: start;
+  border-bottom: 1.5px solid #a3a3a3;
+}
+
+.sidebar .sidebar-mid .nono-members {
+  text-align: start;
 }
 
 .sidebar .sidebar-bot {

@@ -50,10 +50,10 @@
                   <tr class="userList" style="display: none">
                     <td class="nickName" style="border: none">
                       <div class="result-user">
-                        {% if user.profile %}
-                        <img style="width: 35px; height: 35px; border-radius: 50%" src="{{user.profile.url}}" />
-                        {% else %}
+                        {% if user.profile.url == '/media/False'%}
                         <i class="fas fa-user"></i>
+                        {% else %}
+                        <img class="profile_img" style="width: 35px; height: 35px; border-radius: 50%" src="{{user.profile.url}}" alt="" />
                         {% endif %}
                         <span class="user-name">{{user.nickname}}</span>
                         <button type="button" name="{{user.nickname}}" class="btn plus-btn" onclick="addUser(this)">

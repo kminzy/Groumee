@@ -33,6 +33,14 @@
             {% endfor %}
           </div>
         </div>
+        <div class="nono-members">
+          <i class="far fa-thumbs-down"></i> 초대를 거절한 멤버
+          <div class="members-list">
+            {% for member in nono_members %}
+             {{member.nickname}}<br />
+            {% endfor %}
+          </div>
+        </div>
       </div>
       <div class="sidebar-bot">
         <span id="edit-group"></span><a id="edit-group" href="{% url 'editGroup' group.id %}"> 그룹 수정<i class="fas fa-cog"></i>&nbsp;&nbsp;</a></span>
@@ -147,10 +155,10 @@
               {%else%}
                 <li class="in">
                   <div class="chat-body">
-                    {% if comment.writer.profile %}
-                    <img class="comment_profile" src="{{comment.writer.profile.url}}" alt="">
-                    {% else %}
+                    {% if comment.writer.profile.url == '/media/False'%}
                     <i class="fas fa-user"></i>
+                    {% else %}
+                    <img class="profile_img" style="width:35px; height:35px; border-radius:50%;" src="{{comment.writer.profile.url}}" alt="">
                     {% endif %}
                     <div class="chat-message">
                       <h5>{{comment.writer.nickname}}</h5>
