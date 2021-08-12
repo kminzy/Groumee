@@ -206,13 +206,16 @@ def groupCalendar_view(request, id):
          return render(request,'forbidden.html')   
       members=[]
       allmembers= group.members.all()
-      waiting_members = []    # allowed가 1인 멤버들 담을 리스트
+      waiting_members = []    # allowed가 0인 멤버들 담을 리스트
+      nono_members = []       # allowed가 1인 멤버들 담을 리스트
       for member in allmembers:    # 그룹원들에 대해 루프
          ug = UserGroup.objects.get(user=member, group=group)
          if ug.allowed == 0:
             waiting_members.append(member)
-         if ug.allowed==2:
-            members.append(member)    
+         elif ug.allowed==2:
+            members.append(member)
+         else:
+            nono_members.append(member)
 
       invitedGroup = UserGroup.objects.filter(user=request.user, allowed=0)
       invitedGroup=list(invitedGroup)
@@ -281,7 +284,7 @@ def groupCalendar_view(request, id):
          comment_list=list(comments)
          return render(request, 'groupCalendar.html',
          {'groupschedules':groupSchedules,'calendar' : cal, 'cur_month' : cur_month_url, 'prev_month' : prev_month_url, 'next_month' : next_month_url, 'group' : group, 'form' : form,
-         'schedule_list':schedule_list, 'date' : [today.year, str(today.month).zfill(2), str(day).zfill(2)],'comment_list':comment_list, 'members':members, 'waiting_members' : waiting_members,'invitedGroup':invitedGroup})
+         'schedule_list':schedule_list, 'date' : [today.year, str(today.month).zfill(2), str(day).zfill(2)],'comment_list':comment_list, 'members':members, 'waiting_members' : waiting_members,'invitedGroup':invitedGroup, 'nono_members' : nono_members})
       else:
          return render(request,'forbidden.html')
    else:
