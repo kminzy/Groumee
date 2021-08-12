@@ -146,10 +146,10 @@
               {%else%}
                 <li class="in">
                   <div class="chat-body">
-                    {% if comment.writer.profile %}
-                    <img class="comment_profile" src="{{comment.writer.profile.url}}" alt="">
-                    {% else %}
+                    {% if comment.writer.profile.url == '/media/False'%}
                     <i class="fas fa-user"></i>
+                    {% else %}
+                    <img class="profile_img" style="width:35px; height:35px; border-radius:50%;" src="{{comment.writer.profile.url}}" alt="">
                     {% endif %}
                     <div class="chat-message">
                       <h5>{{comment.writer.nickname}}</h5>
