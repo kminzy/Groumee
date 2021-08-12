@@ -205,3 +205,7 @@ table{             /* 부트스트랩 css 상쇄 */
     transform: translateY(-2px);
 }
 
+.inputs a{
+    display: none;
+}
+

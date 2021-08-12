@@ -82,10 +82,6 @@ class CustomPasswordChangeForm(PasswordChangeForm):
 
 class CustomUserChangeForm(UserChangeForm):
     password=None
-    profile = forms.ImageField(widget = forms.FileInput(attrs={
-        "class":"input",
-        "type":"file",
-     }),label="upload profile", required=False)
     class Meta:
         model = get_user_model()
         fields = ['nickname', 'profile']
