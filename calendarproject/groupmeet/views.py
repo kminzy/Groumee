@@ -37,11 +37,7 @@ def userCalendar_view(request):
       cal = mark_safe(cal)
 
       form = UserScheduleCreationForm()
-      invitedGroup = UserGroup.objects.filter(user=user, allowed=0)
-
-      groups=UserGroup.objects.filter(user=user).get
-      print(groups)
-      
+      invitedGroup = UserGroup.objects.filter(user=user, allowed=0)      
       invitedGroup=list(invitedGroup)
 
       return render(request, 'userCalendar.html', {
@@ -526,3 +522,4 @@ def leaveGroup(request, id):
       return redirect("getuserGroupList") # 수정2
    else:
       return render(request,'forbidden.html')
+

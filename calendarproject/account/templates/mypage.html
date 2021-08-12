@@ -5,9 +5,30 @@
 {% endblock %}
 
 {% block content %}
+<body></body>
 <div class="main-section">
     <h1>mypage</h1>
+    <div class="change_success">
+        {% for message in messages %}
+        <i class="fas fa-check"></i> {{ message.message }}
+        {% endfor %}
+    </div>
+    <br><br>
+    아이디: {{userinfo.username}}<br>
+    이메일: {{userinfo.email}}<br><br>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-element">
+            닉네임:{{form.nickname}}
+        </div>
+        <div class="form-element">
+            사진: <br>
+            {{form.profile}}
+        </div><br><br>
+        <button type="submit" class="btn-signup">Save changes</button>
+    </form>
     <br><br>
     <a href="{% url 'changepw' %}" style="color:black;">비밀번호 변경</a>
 </div>
+</body>
 {% endblock %}
