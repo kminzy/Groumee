@@ -22,7 +22,11 @@
         <div class="members">
             {%for member in member_list%}
             <div class="member">
-                <img class="user_icon" src={{member.profile.url}}></img>
+                {% if member.profile.url == '/media/False'%}
+                <i class="fas fa-user"></i>
+                {% else %}
+                <img class="profile_img" style="width:35px; height:35px; border-radius:50%;" src="{{member.profile.url}}" alt="">
+                {% endif %}
                 <span class="user_name">{{member.nickname}}</span>
             </div>
             {%endfor%}
