@@ -69,7 +69,7 @@
             
             <span class="profile user-icon">
                 <a href="{% url 'mypage' %}">
-                    {% if user.profile %}
+                    {% if user.profile.url != False %}
                     <img class="profile_img" src="{{user.profile.url}}" alt="">
                     {% else %}
                     <i class="fas fa-user"></i>

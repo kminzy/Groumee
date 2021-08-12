@@ -26,7 +26,7 @@ commentlist=[]
 
 def userCalendar_view(request):
    if request.user.is_authenticated:
-      user = get_object_or_404(CustomUser, pk=request.user.nickname)
+      user = get_object_or_404(CustomUser, nickname=request.user.nickname)
 
       today = get_date(request.GET.get('month'))
       prev_month_url = prev_month(today)
@@ -60,7 +60,7 @@ def show_userschedule(request):
       month = int(jsonObj.get('month'))
       day = int(jsonObj.get('day'))
 
-      user = get_object_or_404(CustomUser, pk=request.user.nickname)
+      user = get_object_or_404(CustomUser, nickname=request.user.nickname)
       date = datetime.date(year, month, day)
 
       schedules = Schedule.objects.filter(user=user, start__date__lte=date, end__date__gte=date).order_by('start')   # 유저가 클릭한 날짜에 있는 스케줄들
@@ -84,7 +84,7 @@ def delete_userschedule(request):
 
 def create_userschedule(request):
    if request.user.is_authenticated:
-      user = get_object_or_404(CustomUser, pk=request.user.nickname)
+      user = get_object_or_404(CustomUser, nickname=request.user.nickname)
       new_schedule = Schedule(user=user)
       form = UserScheduleCreationForm(request.POST)
       
@@ -360,14 +360,6 @@ def delComment(request,group_id,comment_id):
    else:
       return render(request,'forbidden.html')
 
-'''
-def editComment(request,group_id,comment_id):
-   edit_comment = get_object_or_404(Comment, pk=comment_id)
-   edit_comment.comment=request.POST.get('content')
-   edit_comment.save()
-   return redirect('groupCalendar_view',group_id)
-   '''
-
 def allowRegister(request, id):
    if request.user.is_authenticated:
       groupSchedule = GroupSchedule.objects.get(pk = id)
@@ -387,7 +379,7 @@ def deleteGroupSchedule(request, id):
       groupSchedule = GroupSchedule.objects.get(pk = id)
       groupMembers = groupSchedule.group.members.all()
       for member in groupMembers:
-         user = CustomUser.objects.get(pk=member.nickname)
+         user = CustomUser.objects.get(nickname=member.nickname)
          try:
             userSchedule = Schedule.objects.get(user=user, start=groupSchedule.start, end=groupSchedule.end, title=groupSchedule.title)
             userSchedule.delete()
@@ -401,8 +393,8 @@ def deleteGroupSchedule(request, id):
 @login_required
 def createGroup(request):
    if request.user.is_authenticated:
-      user = request.user.nickname
-      userList = CustomUser.objects.exclude(nickname=user)
+      user = request.user
+      userList = CustomUser.objects.exclude(nickname=user.nickname)
       invitedGroup = UserGroup.objects.filter(user=user, allowed=0)
       invitedGroup=list(invitedGroup)
       return render(request, "createGroup.html", {'userList':userList,'invitedGroup':invitedGroup} )
@@ -488,7 +480,7 @@ def invitation_view(request,id):
          if ug.allowed==2:
             member_list.append(member)
       usergroup=get_object_or_404(UserGroup,group=id,user=request.user)
-      user = get_object_or_404(CustomUser, pk=request.user.nickname)
+      user = get_object_or_404(CustomUser, nickname=request.user.nickname)
       invitedGroup = UserGroup.objects.filter(user=user, allowed=0)
       invitedGroup=list(invitedGroup)
       return render(request,'groupInvitation.html',{'group':group,'member_list':member_list,'usergroup':usergroup,'invitedGroup':invitedGroup})
