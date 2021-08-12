@@ -1,34 +1,70 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
-<link rel="stylesheet" href='{% static "css/groupinvitation.css" %}' />
+<link rel="stylesheet" href='{% static "css/mypage.css" %}' />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 {% block content %}
 <body></body>
 <div class="main-section">
-    <h1>mypage</h1>
-    <div class="change_success">
-        {% for message in messages %}
-        <i class="fas fa-check"></i> {{ message.message }}
-        {% endfor %}
-    </div>
-    <br><br>
-    아이디: {{userinfo.username}}<br>
-    이메일: {{userinfo.email}}<br><br>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-element">
-            닉네임:{{form.nickname}}
+    <div class="account-change-section">
+        <div class="container">
+            <h1>MY PAGE</h1>
+            <div class="change-success">
+                {% for message in messages %}
+                <i class="fas fa-check"></i> {{ message.message }}
+                {% endfor %}
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="nickname-and-profile">
+                    <div class="point">
+                        {% if user.profile %}
+                            <div class="profile-image">
+                                <img class="profile-image-img" src="{{user.profile.url}}">
+                            </div>
+                        {% else %}
+                            <i class="fas fa-user"></i>
+                        {% endif %}
+                            <div class="inputs">
+                                <div class="nickname-zone">{{form.nickname}}<i class="fas fa-edit edit-nickname"></i></div>
+                                {{form.profile}}
+                            </div>
+                    </div>
+                    <div class="go-change">
+                        <button type="submit" class="btn-change">변경</button>
+                    </div>
+                </div>
+                <div class="email-and-username">
+                    <div class="uneditable">
+                        <p>아이디</p>
+                        {{userinfo.username}}
+                    </div>
+                    <div class="uneditable">
+                        <p>이메일</p>
+                        {{userinfo.email}}
+                    </div>
+                </div>
+            </form>
+            <div class="go-to-changePW">
+                <a href="{% url 'changepw' %}">비밀번호 변경</a>
+            </div>
         </div>
-        <div class="form-element">
-            사진: <br>
-            {{form.profile}}
-        </div><br><br>
-        <button type="submit" class="btn-signup">Save changes</button>
-    </form>
-    <br><br>
-    <a href="{% url 'changepw' %}" style="color:black;">비밀번호 변경</a>
+    </div>
 </div>
 </body>
+<script>
+    $(document).ready(function(){
+        const target = document.getElementById('id_nickname');
+        target.readOnly = true;
+    })
+
+    $('.edit-nickname').click(function(){
+        const target = document.getElementById('id_nickname');
+        target.readOnly = false;
+        document.getElementById('id_nickname').focus();
+    })
+</script>
 {% endblock %}
