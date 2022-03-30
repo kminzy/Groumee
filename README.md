@@ -39,7 +39,7 @@
 ![일정1](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlWygL%2Fbtru3t7GNnN%2FonBZ99qPNueORMYePBzKqK%2Fimg.png)
 ![일정2](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fcs4Q1s%2Fbtru4jwYvz9%2FGYFqzwWNGstgi6iJVKjbGk%2Fimg.png)
 ### 그룹 생성
-![그룹생성](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FQmoun%2Fbtru3tNlJSl%2FlYzYL4EPjd1V3OHKnxewD1%2Fimg.png)
+![그룹생성](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FkWcSO%2FbtrxWKSzjHQ%2F4nx0emkLlkNpwWpKnaTDk1%2Fimg.png)
 ### 그룹 초대 알림
 ![그룹초대](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAUMje%2Fbtrvbhw9tPO%2FdnhKeCLwt68pdOYIZrIOqK%2Fimg.png)
 ### 그룹 목록
